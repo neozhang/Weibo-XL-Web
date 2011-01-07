@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'rubygems'
 require 'haml'
-gem 'oauth'
+require 'oauth'
 require 'oauth/consumer'
 
 # Create a Weibo oauth instance for authorization process
@@ -17,11 +17,12 @@ get '/connect' do
   # here to allow users to connect to their Sina Weibo accounts
   @consumer = OAuth::Consumer.new(api_key, api_key_secret,
                                    {:site => "http://api.t.sina.com.cn",
-                                    :request_token_path=>"/oauth/request_token",  
-                                    :access_token_path=>"/oauth/access_token",  
-                                    :authorize_path=>"/oauth/authorize",  
-                                    :signature_method=>"HMAC-SHA1",  
-                                    :scheme=>:header
+                                    :request_token_path => "/oauth/request_token",  
+                                    :access_token_path => "/oauth/access_token",  
+                                    :authorize_path => "/oauth/authorize",  
+                                    :signature_method => "HMAC-SHA1",  
+                                    :scheme => :header,
+                                    :oauth_version => "1.0a"
                                    }
                                  )
   @request_token=@consumer.get_request_token
