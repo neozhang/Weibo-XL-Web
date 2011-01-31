@@ -1,6 +1,20 @@
-.content
-  %h2 This is a Weibo
-.author
-  %p @neozhang
-.time
-  %p 5 seconds ago
+.weibocast
+  -@timeline.each do |weibo|
+    %div{:class => "weibo", :id => weibo.id}
+      %p.weibo_text=weibo.text
+      -if weibo.retweeted_status
+        %p.weibo_retweet_text=weibo.retweeted_status.text
+      -if weibo.thumbnail_pic
+        %img.weibo_pic{:src => weibo.thumbnail_pic, :alt => weibo.original_pic}
+      .weibo_wrapper
+        .weibo_info
+          %img.author_img{:src => weibo.user.profile_image_url}
+          %span.author=weibo.user.screen_name
+          -if weibo.retweeted_status
+            %span.via_author=weibo.retweeted_status.user.screen_name
+          %div.created_at=weibo.created_at
+        .toolbar
+          %form{:method => "post", :action => "/repost/#{weibo.id}"}
+            %input.repost{:type => "submit", :value => "转发"}
+          %form{:method => "post", :action => "/fav/#{weibo.id}"}
+            %input.fav{:type => "submit", :value => "收藏"}

@@ -1,0 +1,17 @@
+!!!
+%html(xml:lang='en' lang='en' xmlns='http://www.w3.org/1999/xhtml')
+  %head
+    %meta(content='text/html;charset=UTF-8' http-equiv='content-type')
+    %title="Weibo XL"
+    %link{:href => "/screen.css", :rel =>"stylesheet", :type => "text/css", :media => "screen" }
+    %script{:type => "text/javascript", :src =>"/js/jquery-1.4.4.min.js"}
+    %script{:type => "text/javascript", :src =>"/js/jquery.cycle.all.min.js"}
+    :javascript
+      $(document).ready(function() {
+        $('.weibocast').cycle({
+          fx:'scrollRight',
+          timeout:10000,
+        });
+      });
+  %body
+    = yield
